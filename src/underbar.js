@@ -84,8 +84,6 @@ var _ = { };
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {  
     
-    var result = [ ];
-
     var negate = function(func){
       return function(x) {
         return !func(x);
@@ -94,9 +92,7 @@ var _ = { };
 
     var negateTest = negate(test);
 
-      result = _.filter(collection, negateTest);
-
-    return result;
+      return _.filter(collection, negateTest);
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
