@@ -83,13 +83,14 @@ var _ = { };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {  
+    
     var result = [ ];
 
-      function negate(func) {
-        return function(x) {
-          return !func(x);
-        };
+    var negate = function(func){
+      return function(x) {
+        return !func(x);
       }
+    }
 
     var negateTest = negate(test);
 
@@ -102,6 +103,16 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    
+    var result = [ ];
+            
+      _.each(array, function(item){
+        if(_.indexOf(result, item) === -1)
+          result.push(item) 
+      });
+    
+    return result;
+
   };
 
 
