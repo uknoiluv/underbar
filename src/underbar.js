@@ -342,8 +342,6 @@ var _ = { };
     }
 
     return function(item) {
-        //result = func.apply(this, arguments);
-        //fast = fastFunc.apply(this, arguments);
 
         for(var prop in storedResult){
           if(Number(prop) === item){
