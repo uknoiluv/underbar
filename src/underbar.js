@@ -221,14 +221,30 @@ var _ = { };
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+         
+    var someArguments = arguments;
 
+    var negate = function(func){
+      if(someArguments.length === 1)
+        return func;      
+      else
+        return function(x) {
+          return !func(x);
+        }
+    }
+
+    var negateIterator = negate(iterator);
+
+    return !_.every(collection,negateIterator)
+
+/*
     return _.reduce(collection,function(trueTest, item) {
       if (!trueTest) {
         return typeof(iterator) === "function" ? Boolean(iterator(item)) : item ;
       }
       return true;
     }, false);
-
+*/
     // TIP: There's a very clever way to re-use every() here.
   };
 
@@ -331,7 +347,21 @@ var _ = { };
   // instead if possible.
   
   _.memoize = function(func) {
-    
+
+    var result;
+    var stored = {};
+
+    return function(item) {
+      if(stored.item === undefined){
+        result = func.apply(this, arguments);
+        stored[item] = func(item);
+        return result;
+      }
+      else
+        return stored[item];
+    }
+
+/*    
     var storedResult ={};
     var alreadyComputed = false;
     var result;
@@ -360,6 +390,7 @@ var _ = { };
           return result;
         }
     };
+*/
   };
 
 
@@ -398,7 +429,7 @@ var _ = { };
 
 
   /**
-   * ADVANCED COLLECTION OPERATIONS
+   * ADVANCED COLLECTION OPERAhnTIONS
    * ==============================
    */
 
